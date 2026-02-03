@@ -4,6 +4,22 @@ import jwt from 'jsonwebtoken';
 import User from '../models/UserSchema.js';
 import bcrypt from 'bcryptjs';
 
+
+
+
+// =============================== ###  Get User Count ### ==============================
+router.get("/count", async (req, res) => {
+
+   try {
+    const count = await User.countDocuments();
+    return res.status(200).json({ msg: "User count fetched successfully ✅", count: count });
+   } catch (error) {
+    return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
+   }
+})
+export default router;
+
+
 //=============================== ###  Register User ### ==============================
 router.post("/register", async (req, res) => {
     const { name, email, password ,role="user"} = req.body
@@ -58,14 +74,3 @@ router.post("/signin", async (req, res) => {
 })
 
 
-// =============================== ###  Get User Count ### ==============================
-router.get("/count", async (req, res) => {
-
-   try {
-    const count = await User.countDocuments();
-    return res.status(200).json({ msg: "User count fetched successfully ✅", count: count });
-   } catch (error) {
-    return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
-   }
-})
-export default router;

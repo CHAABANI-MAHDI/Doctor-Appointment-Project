@@ -32,6 +32,18 @@ router.post("/addDept", auth("admin"), upload.single('image'), async (req, res) 
 })
 
 
+// =============================== ###  Get Departments ### ==============================
+router.get("/getDepts", async (req, res) => {
+    try {
+        const departments = await Department.find();
+        return res.status(200).json({ msg: "Departments fetched successfully ✅", departments: departments });  
+        
+    } catch (error) {
+        return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
+    }
+})
+
+
 
 // =============================== ###  Get Department Count ### ==============================
 router.get("/count", async (req, res) => {

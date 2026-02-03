@@ -1,11 +1,11 @@
 import Slider from "react-slick";
-import "../index.css";
+import "../index.css"
 
 import carousel1 from "../images/hero-caroussel/hero-carousel-1.jpg";
 import carousel2 from "../images/hero-caroussel/hero-carousel-2.jpg";
 import carousel3 from "../images/hero-caroussel/hero-carousel-3.jpg";
-
 const HeroSlider = () => {
+
   const settings = {
     dots: true,
     infinite: true,
@@ -56,13 +56,13 @@ const HeroSlider = () => {
             <div key={index} className="relative">
               <div className="relative w-full h-[70vh] md:h-[85vh] lg:h-[90vh] overflow-hidden">
                 {/* Image with overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent z-[1]" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent z-[1] " />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1] " />
 
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-full h-full object-cover animate-zoom"
+                  className="w-full h-full object-cover scale-105 animate-zoom"
                 />
 
                 {/* Content */}

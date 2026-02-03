@@ -18,6 +18,19 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 
+
+// =============================== ###  Get Doctors ### ==============================
+router.get("/getDoctors", async (req, res) => {
+    try {
+        const doctors = await Doctor.find();
+        return res.status(200).json({ msg: "Doctors fetched successfully ✅", doctors: doctors });  
+        
+    } catch (error) {
+        return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
+    }
+})
+
+
 // =============================== ###  Add Doctor ### ==============================
 router.post("/addDoctors", upload.single('image'), async (req, res) => {
     try{
@@ -42,17 +55,19 @@ router.post("/addDoctors", upload.single('image'), async (req, res) => {
 })
 
 
-// =============================== ###  Get Doctors ### ==============================
-router.get("/getDoctors", async (req, res) => {
-    try {
-        const doctors = await Doctor.find();
-        return res.status(200).json({ msg: "Doctors fetched successfully ✅", doctors: doctors });  
-        
-    } catch (error) {
-        return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
-    }
-})
 
+// =============================== ###  Get Doctor Count ### ==============================
+router.get("/count", async (req, res) => {
+
+   try {
+    const count = await Doctor.countDocuments();
+       return res.status(200).json({ msg: "Doctor count fetched successfully ✅", count: count });
+       
+       
+   } catch (error) {
+    return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
+   }
+})
 
 // =============================== ###  Get Doctor By Id ### ==============================
 router.get("/getDoctors/:id", async (req, res) => {
@@ -63,14 +78,5 @@ router.get("/getDoctors/:id", async (req, res) => {
     return res.status(200).json({ msg: "Doctor fetched successfully ✅", doctor: doctor });
 })
 
-// =============================== ###  Get Doctor Count ### ==============================
-router.get("/count", async (req, res) => {
 
-   try {
-    const count = await Doctor.countDocuments();
-    return res.status(200).json({ msg: "Doctor count fetched successfully ✅", count: count });
-   } catch (error) {
-    return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
-   }
-})
 export default router;
