@@ -56,4 +56,16 @@ router.post("/signin", async (req, res) => {
     } });
 
 })
+
+
+// =============================== ###  Get User Count ### ==============================
+router.get("/count", async (req, res) => {
+
+   try {
+    const count = await User.countDocuments();
+    return res.status(200).json({ msg: "User count fetched successfully ✅", count: count });
+   } catch (error) {
+    return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
+   }
+})
 export default router;

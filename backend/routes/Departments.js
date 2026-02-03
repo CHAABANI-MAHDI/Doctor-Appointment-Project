@@ -31,4 +31,16 @@ router.post("/addDept", auth("admin"), upload.single('image'), async (req, res) 
 
 })
 
+
+
+// =============================== ###  Get Department Count ### ==============================
+router.get("/count", async (req, res) => {
+
+   try {
+    const count = await Department.countDocuments();
+    return res.status(200).json({ msg: "Department count fetched successfully ✅", count: count });
+   } catch (error) {
+    return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
+   }
+})
 export default router;

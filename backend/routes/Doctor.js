@@ -63,4 +63,14 @@ router.get("/getDoctors/:id", async (req, res) => {
     return res.status(200).json({ msg: "Doctor fetched successfully ✅", doctor: doctor });
 })
 
+// =============================== ###  Get Doctor Count ### ==============================
+router.get("/count", async (req, res) => {
+
+   try {
+    const count = await Doctor.countDocuments();
+    return res.status(200).json({ msg: "Doctor count fetched successfully ✅", count: count });
+   } catch (error) {
+    return res.status(500).json({ msg: "Server error ⛔⛔", error: error.message });
+   }
+})
 export default router;

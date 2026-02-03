@@ -1,55 +1,11 @@
 import Slider from "react-slick";
-import "../index.css"
+import "../index.css";
 
 import carousel1 from "../images/hero-caroussel/hero-carousel-1.jpg";
 import carousel2 from "../images/hero-caroussel/hero-carousel-2.jpg";
 import carousel3 from "../images/hero-caroussel/hero-carousel-3.jpg";
+
 const HeroSlider = () => {
-  // Custom arrow components with inline SVG icons
-  const NextArrow = ({ onClick }) => (
-    <button
-      onClick={onClick}
-      className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 hover:scale-110 group"
-      aria-label="Next slide"
-    >
-      <svg
-        className="w-6 h-6 group-hover:translate-x-0.5 transition-transform"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M9 5l7 7-7 7"
-        />
-      </svg>
-    </button>
-  );
-
-  const PrevArrow = ({ onClick }) => (
-    <button
-      onClick={onClick}
-      className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 hover:scale-110 group"
-      aria-label="Previous slide"
-    >
-      <svg
-        className="w-6 h-6 group-hover:-translate-x-0.5 transition-transform"
-        fill="none"
-        stroke="currentColor"
-        viewBox="0 0 24 24"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M15 19l-7-7 7-7"
-        />
-      </svg>
-    </button>
-  );
-
   const settings = {
     dots: true,
     infinite: true,
@@ -61,8 +17,6 @@ const HeroSlider = () => {
     fade: true,
     cssEase: "cubic-bezier(0.4, 0, 0.2, 1)",
     pauseOnHover: true,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
     appendDots: (dots) => (
       <div className="absolute bottom-8 left-0 right-0">
         <ul className="flex justify-center gap-3"> {dots} </ul>
@@ -96,12 +50,11 @@ const HeroSlider = () => {
 
   return (
     <>
-      
       <div className="hero-slider relative overflow-hidden">
         <Slider {...settings}>
           {slideImages.map((slide, index) => (
             <div key={index} className="relative">
-              <div className="relative w-full h-[70vh] md:h-[85vh] lg:h-[90vh]">
+              <div className="relative w-full h-[70vh] md:h-[85vh] lg:h-[90vh] overflow-hidden">
                 {/* Image with overlay gradient */}
                 <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-transparent z-[1]" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-[1]" />
@@ -109,7 +62,7 @@ const HeroSlider = () => {
                 <img
                   src={slide.image}
                   alt={slide.title}
-                  className="w-full h-full object-cover scale-105 animate-zoom"
+                  className="w-full h-full object-cover animate-zoom"
                 />
 
                 {/* Content */}
