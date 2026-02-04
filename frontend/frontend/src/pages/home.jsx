@@ -4,6 +4,7 @@ import CallToAction from './../components/callToAction.jsx';
 import About from '../components/about.jsx'
 import Stats from '../components/stats.jsx'
 import Departments from '../components/departments.jsx'; 
+import Footer from '../components/footer.jsx';
 
 function Home() {
   return (
@@ -13,6 +14,7 @@ function Home() {
       <About />
       <Stats />
       <Departments />
+      <Footer />
     </div>
   );
 }
