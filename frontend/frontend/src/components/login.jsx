@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
   const { login } = useContext(AuthContext);
@@ -46,7 +46,7 @@ function Login() {
     setIsLoading(true);
     try {
       await login(form);
-      navigate("/dashboard");
+      navigate("/");
     } catch {
       setErrors({
         ...newErrors,
@@ -137,12 +137,12 @@ function Login() {
           </button>
         </form>
 
-        {/* Signup */}
+        {/* Regsister */}
         <p className="text-center text-sm text-blue-600 mt-6">
-          Don’t have an account?{" "}
-          <a href="#" className="font-semibold hover:underline">
-            Sign up
-          </a>
+          Don&apos;t have an account ?{" "}
+          <Link to="/register" className="font-semibold hover:underline">
+            Sign Up
+          </Link>
         </p>
       </div>
     </div>
