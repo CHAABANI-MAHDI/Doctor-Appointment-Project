@@ -58,8 +58,8 @@ function Login() {
   };
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-blue-50 overflow-hidden">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
+    <div className="fixed inset-0 flex items-center justify-center bg-blue-50 overflow-hidden">
+      <div className="w-full max-w-md bg-white rounded-2xl shadow-xl p-8 mt-20">
         {/* Title */}
         <div className="text-center mb-6">
           <h1 className="text-3xl font-bold text-blue-700">Welcome Back</h1>
