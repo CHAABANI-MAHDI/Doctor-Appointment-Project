@@ -129,7 +129,7 @@ function NavBar() {
       ),
     },
     {
-      path: "createApt",
+      path: "/createApt",
       label: "Add Appointments",
       icon: (
         <svg
