@@ -44,7 +44,7 @@ router.post("/createAppointment", auth(), async (req, res) => {
 //=============================== ###  get Appointment ### ==============================
 router.get("/getAppointment", auth(), async (req, res) => {
   try {
-console.log("USER ID:", req.user.id);
+
     const appointments = await Appointment.find({ user: req.user.id })
 
 

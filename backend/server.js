@@ -23,7 +23,7 @@ app.use("/user", userR);
 app.use("/doctors", doctorR);
 app.use("/appointments", appointmentR);
 app.use("/departments", departmentR);
-app.use('/files', express.static('pic-uploads'));
+app.use('/pic-uploads', express.static('pic-uploads'));
 
 
 
