@@ -5,7 +5,7 @@ import NavBar from './components/navBar.jsx';
 import { Routes, Route } from 'react-router-dom';
 import AddAppointment from './pages/addAppointment.jsx';
 import AddDoctors from './pages/addDoctors.jsx';
-
+import MyAppointments from './pages/myAppointments.jsx';
 
 function App() {
   return (
@@ -18,6 +18,7 @@ function App() {
         <Route index path="/register" element={<Register />} />
         <Route index path="/add-appointment" element={<AddAppointment />} />
         <Route index path="/add-doctor" element={<AddDoctors />} />
+        <Route index path="/my-appointments" element={<MyAppointments />} />
 
       </Routes>
     </>
