@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 function MyAppointments() {
-  const { user, logout } = useContext(AuthContext);
+  const {  logout } = useContext(AuthContext);
   const navigate = useNavigate();
   const [appointments, setAppointments] = useState([]);
   const [error, setError] = useState(null);
@@ -403,7 +404,7 @@ function MyAppointments() {
             // Appointment Cards
             <>
               {appointments.map((app) => {
-                const { valid, display, isPast } = formatAppointmentDate(
+                const {  display, isPast } = formatAppointmentDate(
                   app.date,
                 );
                 const isCancelling = cancellingId === app._id;

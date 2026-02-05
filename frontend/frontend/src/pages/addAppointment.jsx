@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useContext, useEffect, useState, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
@@ -85,6 +86,7 @@ function AddAppointment() {
       setAvailableTimes([]);
       setForm((prev) => ({ ...prev, time: "" }));
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.date, form.doctor]);
 
   // Auto-hide notification after 5 seconds
@@ -297,13 +299,7 @@ function AddAppointment() {
     return new Date().toISOString().split("T")[0];
   };
 
-  // Get tomorrow's date for default
-  const getTomorrowDate = () => {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    return tomorrow.toISOString().split("T")[0];
-  };
-
+ 
   // Format doctor name for display
   const formatDoctorName = (name) => {
     return name.replace(/\b\w/g, (l) => l.toUpperCase());
