@@ -45,8 +45,14 @@ function Login() {
 
     setIsLoading(true);
     try {
-      await login(form);
-      navigate("/");
+      const userData = await login(form);
+
+      // Navigate based on user role
+      if (userData?.role === "admin") {
+        navigate("/admin-dashboard");
+      } else {
+        navigate("/");
+      }
     } catch {
       setErrors({
         ...newErrors,
