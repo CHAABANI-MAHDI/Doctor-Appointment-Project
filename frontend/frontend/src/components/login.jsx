@@ -49,9 +49,9 @@ function Login() {
 
       // Navigate based on user role
       if (userData?.role === "admin") {
-        navigate("/admin-dashboard");
+        navigate("/admin-overview");
       } else {
-        navigate("/");
+        navigate("/add-appointment");
       }
     } catch {
       setErrors({
@@ -122,16 +122,7 @@ function Login() {
             )}
           </div>
 
-          {/* Options */}
-          <div className="flex justify-between text-sm text-blue-600">
-            <label className="flex items-center gap-2">
-              <input type="checkbox" />
-              Remember me
-            </label>
-            <a href="#" className="hover:underline">
-              Forgot password?
-            </a>
-          </div>
+        
 
           {/* Button */}
           <button
