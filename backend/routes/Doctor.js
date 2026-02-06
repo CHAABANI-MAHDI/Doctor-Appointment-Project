@@ -19,12 +19,7 @@ const storage = multer.diskStorage({
     // Build filename: fieldname-timestamp-random.ext
     const newFilename = file.fieldname + "-" + uniqueSuffix + fileExtension;
 
-    console.log("=== FILE UPLOAD DEBUG ===");
-    console.log("Original name:", file.originalname);
-    console.log("Extension:", fileExtension);
-    console.log("New filename:", newFilename);
-    console.log("========================");
-
+   
     cb(null, newFilename);
   },
 });
@@ -69,10 +64,7 @@ router.post("/addDoctors", upload.single("image"), async (req, res) => {
   try {
     const { name, specialty, description, experienceYears } = req.body;
 
-    console.log("=== REQUEST DEBUG ===");
-    console.log("Body:", req.body);
-    console.log("File:", req.file);
-    console.log("====================");
+
 
     // Check if file was uploaded
     if (!req.file) {
@@ -146,3 +138,56 @@ router.get("/getDoctors/:id", async (req, res) => {
 });
 
 export default router;
+
+
+// =============================== ###  Update Doctor ### ==============================
+router.put("/updateDoctors/:id", upload.single("image"), async (req, res) => {
+  try {
+    const { name, specialty, description, experienceYears } = req.body;
+    const doctor = await Doctor.findById(req.params.id);
+    if (!doctor) {
+      return res.status(404).json({ msg: "Doctor not found ⛔⛔" });
+    }
+    doctor.name = name;
+    doctor.specialty = specialty;
+    doctor.description = description;
+    doctor.experienceYears = experienceYears;
+    if (req.file) {
+      doctor.image = req.file.filename;
+    }
+    await doctor.save();
+    return res.status(200).json({ msg: "Doctor updated successfully ✅" });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ msg: "Server error ⛔⛔", error: error.message });
+  }
+})
+
+// =============================== ###  Delete Doctor ### ==============================
+
+
+
+router.delete("/deleteDoctors/:idDoc", async (req, res) => {
+  try {
+    // Find and delete appointment
+    const deletedDoctor = await Doctor.findByIdAndDelete(req.params.idDoc);
+
+    if (!deletedDoctor) {
+      return res
+        .status(404)
+        .json({ msg: "Doctor with this ID is NOT FOUND ❌" });
+    }
+
+    return res.status(200).json({
+      msg: "Doctor deleted successfully ✅",
+      deletedDoctor: deletedDoctor,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      msg: "Server error ⛔⛔",
+      error: error.message,
+    });
+  }
+});
+
