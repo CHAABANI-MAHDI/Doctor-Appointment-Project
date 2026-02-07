@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
+
 // Icons remain the same
 const ActivityIcon = ({ size = 20, className = "" }) => (
   <svg
@@ -143,9 +145,9 @@ const OverviewPage = () => {
 
       // Fetch counts
       const [doctorCountRes, userCountRes, deptCountRes] = await Promise.all([
-        fetch("http://localhost:5000/doctors/count"),
-        fetch("http://localhost:5000/users/count"),
-        fetch("http://localhost:5000/departments/count"),
+        fetch(`${API_URL}/doctors/count`),
+        fetch(`${API_URL}/users/count`),
+        fetch(`${API_URL}/departments/count`),
       ]);
 
       const doctorCount = await doctorCountRes.json();
@@ -154,8 +156,8 @@ const OverviewPage = () => {
 
       // Fetch actual data
       const [doctorsRes, deptsRes] = await Promise.all([
-        fetch("http://localhost:5000/doctors/getDoctors"),
-        fetch("http://localhost:5000/departments/getDepts"),
+        fetch(`${API_URL}/doctors/getDoctors`),
+        fetch(`${API_URL}/departments/getDepts`),
       ]);
 
       const doctorsData = await doctorsRes.json();
@@ -218,8 +220,8 @@ const OverviewPage = () => {
     iconBg = "bg-blue-100",
     iconColor = "text-blue-600",
   }) => (
-    <div className="group relative overflow-hidden bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100">
-      <div className="absolute inset-0 bg-gradient-to-br from-white to-gray-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div className="group relative overflow-hidden bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-gray-100 dark:border-gray-700">
+      <div className="absolute inset-0 bg-gradient-to-br from-white dark:from-gray-800 to-gray-50 dark:to-gray-700 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
       <div className="relative z-10">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-4">
@@ -227,25 +229,28 @@ const OverviewPage = () => {
               <Icon size={24} />
             </div>
             <div>
-              <p className="text-3xl font-bold text-gray-900">{value}</p>
-              <p className="text-sm font-medium text-gray-600 mt-1">{label}</p>
+              <p className="text-3xl font-bold text-gray-900 dark:text-white">
+                {value}
+              </p>
+              <p className="text-sm font-medium text-gray-600 dark:text-gray-400 mt-1">
+                {label}
+              </p>
             </div>
           </div>
         </div>
-        
       </div>
     </div>
   );
 
   const DoctorCard = ({ doctor }) => (
-    <div className="group relative bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 overflow-hidden">
+    <div className="group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden">
       <div className="p-5">
         <div className="flex items-start gap-4">
           <div className="relative flex-shrink-0">
-            <div className="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100">
+            <div className="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 dark:from-gray-700 to-blue-100 dark:to-gray-600">
               {doctor.image ? (
                 <img
-                  src={`http://localhost:5000/pic-uploads/${doctor.image}`}
+                  src={`${API_URL}/pic-uploads/${doctor.image}`}
                   alt={doctor.name}
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -256,7 +261,7 @@ const OverviewPage = () => {
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center">
-                  <span className="text-2xl font-bold text-blue-600">
+                  <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                     {doctor.name.charAt(0)}
                   </span>
                 </div>
@@ -266,22 +271,22 @@ const OverviewPage = () => {
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between">
               <div>
-                <h3 className="font-bold text-gray-900 text-lg mb-1">
+                <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
                   {doctor.name}
                 </h3>
-                <p className="text-sm text-blue-600 font-medium mb-2">
+                <p className="text-sm text-blue-600 dark:text-blue-400 font-medium mb-2">
                   {doctor.specialty || "General Physician"}
                 </p>
               </div>
-              <span className="px-2 py-1 text-xs font-semibold text-green-700 bg-green-50 rounded-full">
+              <span className="px-2 py-1 text-xs font-semibold text-green-700 dark:text-green-300 bg-green-50 dark:bg-green-900/30 rounded-full">
                 Active
               </span>
             </div>
             <div className="flex flex-wrap gap-2 mt-2">
-              <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium text-gray-600 bg-gray-100 rounded-full">
+              <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-700 rounded-full">
                 {doctor.experienceYears || "5"} yrs exp
               </span>
-              <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium text-blue-600 bg-blue-50 rounded-full">
+              <span className="inline-flex items-center px-2.5 py-0.5 text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 rounded-full">
                 Available
               </span>
             </div>
@@ -292,23 +297,26 @@ const OverviewPage = () => {
   );
 
   const DepartmentCard = ({ dept }) => (
-    <div className="group relative bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 overflow-hidden">
+    <div className="group relative bg-white dark:bg-gray-800 rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700 overflow-hidden">
       <div className="p-5">
         <div className="flex items-start gap-4">
           <div
-            className={`p-3 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50`}
+            className={`p-3 rounded-lg bg-gradient-to-br from-blue-50 dark:from-gray-700 to-indigo-50 dark:to-gray-600`}
           >
-            <Building2Icon size={20} className="text-blue-600" />
+            <Building2Icon
+              size={20}
+              className="text-blue-600 dark:text-blue-400"
+            />
           </div>
           <div className="flex-1 min-w-0">
-            <h3 className="font-bold text-gray-900 text-lg mb-1">
+            <h3 className="font-bold text-gray-900 dark:text-white text-lg mb-1">
               {dept.name}
             </h3>
-            <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+            <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-2 mb-3">
               {dept.description ||
                 "Medical department providing specialized care"}
             </p>
-            <div className="flex items-center text-sm text-gray-500">
+            <div className="flex items-center text-sm text-gray-500 dark:text-gray-400">
               <span className="flex items-center">
                 <svg
                   className="w-4 h-4 mr-1 text-blue-500"
@@ -332,33 +340,38 @@ const OverviewPage = () => {
 
   const AppointmentItem = ({ appointment }) => {
     const statusColors = {
-      confirmed: "bg-green-100 text-green-800",
-      pending: "bg-yellow-100 text-yellow-800",
-      completed: "bg-blue-100 text-blue-800",
-      cancelled: "bg-red-100 text-red-800",
+      confirmed:
+        "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300",
+      pending:
+        "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300",
+      completed:
+        "bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300",
+      cancelled: "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300",
     };
 
     return (
-      <div className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-lg transition-colors">
+      <div className="flex items-center justify-between p-4 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-colors">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
-            <span className="font-bold text-blue-600">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-50 dark:from-gray-700 to-blue-100 dark:to-gray-600 flex items-center justify-center">
+            <span className="font-bold text-blue-600 dark:text-blue-400">
               {appointment.patientName.charAt(0)}
             </span>
           </div>
           <div>
-            <p className="font-medium text-gray-900">
+            <p className="font-medium text-gray-900 dark:text-white">
               {appointment.patientName}
             </p>
-            <p className="text-sm text-gray-600">{appointment.doctor}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-400">
+              {appointment.doctor}
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <span className="text-sm font-medium text-gray-700">
+          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
             {appointment.time}
           </span>
           <span
-            className={`px-3 py-1 text-xs font-semibold rounded-full ${statusColors[appointment.status] || "bg-gray-100 text-gray-800"}`}
+            className={`px-3 py-1 text-xs font-semibold rounded-full ${statusColors[appointment.status] || "bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300"}`}
           >
             {appointment.status.charAt(0).toUpperCase() +
               appointment.status.slice(1)}
@@ -370,18 +383,18 @@ const OverviewPage = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center min-h-[500px]">
             <div className="text-center">
               <div className="relative inline-block mb-6">
-                <div className="w-16 h-16 border-4 border-blue-100 rounded-full"></div>
+                <div className="w-16 h-16 border-4 border-blue-100 dark:border-gray-700 rounded-full"></div>
                 <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin absolute top-0 left-0"></div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
+              <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-200 mb-2">
                 Loading Dashboard
               </h3>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-400">
                 Please wait while we fetch your data...
               </p>
             </div>
@@ -392,24 +405,26 @@ const OverviewPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+              <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-2">
                 Welcome to MediCare Dashboard
               </h1>
-              <p className="text-gray-600">
+              <p className="text-gray-600 dark:text-gray-400">
                 Here's what's happening with your healthcare system today.
               </p>
             </div>
             <div className="hidden md:flex items-center gap-3">
-              <span className="text-sm text-gray-500">Last updated: Today</span>
+              <span className="text-sm text-gray-500 dark:text-gray-400">
+                Last updated: Today
+              </span>
               <button
                 onClick={fetchAllData}
-                className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors"
+                className="px-4 py-2 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-gray-600 rounded-lg transition-colors"
               >
                 Refresh Data
               </button>
