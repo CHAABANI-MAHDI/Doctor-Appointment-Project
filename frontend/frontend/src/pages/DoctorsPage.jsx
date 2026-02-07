@@ -20,9 +20,7 @@ const DoctorsPage = () => {
   const fetchDoctors = async () => {
     try {
       setLoading(true);
-      const response = await fetch(
-        "http://localhost:5000/doctors/getDoctors",
-      );
+      const response = await fetch("http://localhost:3000/doctors/getDoctors");
       const data = await response.json();
       setDoctors(data.doctors || []);
     } catch (error) {
@@ -44,7 +42,7 @@ const DoctorsPage = () => {
     setDeleting(true);
     try {
       const response = await fetch(
-        `http://localhost:5000/doctors/deleteDoctors/${doctorToDelete._id}`,
+        `http://localhost:3000/doctors/deleteDoctors/${doctorToDelete._id}`,
         {
           method: "DELETE",
         },
@@ -83,7 +81,7 @@ const DoctorsPage = () => {
               <div className="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-100">
                 {doctor.image ? (
                   <img
-                    src={`http://localhost:5000/pic-uploads/${doctor.image}`}
+                    src={`http://localhost:3000/pic-uploads/${doctor.image}`}
                     alt={doctor.name}
                     className="w-full h-full object-cover"
                     onError={(e) => {
@@ -171,7 +169,7 @@ const DoctorsPage = () => {
             <div className="w-12 h-12 rounded-lg overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100">
               {doctor.image ? (
                 <img
-                  src={`http://localhost:5000/pic-uploads/${doctor.image}`}
+                  src={`http://localhost:3000/pic-uploads/${doctor.image}`}
                   alt={doctor.name}
                   className="w-full h-full object-cover"
                   onError={(e) => {

@@ -137,25 +137,7 @@ const AboutPage = () => {
       </div>
 
       <main className="container mx-auto px-4 py-16">
-        {/* Tunisia Stats */}
-        <section className="mb-20">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-2xl shadow-lg text-center"
-              >
-                <div className="flex justify-center mb-3 text-blue-600 text-2xl">
-                  {stat.icon}
-                </div>
-                <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-1">
-                  {stat.number}
-                </div>
-                <div className="text-gray-600 font-medium">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </section>
+        
 
         {/* Mission & Vision for Tunisia */}
         <section id="mission" className="mb-20">
@@ -219,152 +201,10 @@ const AboutPage = () => {
           </div>
         </section>
 
-        {/* Timeline in Tunisia */}
-        <section className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Our Journey in Tunisia
-          </h2>
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-200 hidden md:block" />
+       
 
-            <div className="space-y-12">
-              {milestones.map((milestone, index) => (
-                <div
-                  key={index}
-                  className={`flex flex-col md:flex-row items-center ${
-                    index % 2 === 0 ? "md:flex-row-reverse" : ""
-                  }`}
-                >
-                  <div className="md:w-1/2 mb-4 md:mb-0">
-                    <div
-                      className={`bg-white p-6 rounded-2xl shadow-lg ${
-                        index % 2 === 0 ? "md:mr-8" : "md:ml-8"
-                      }`}
-                    >
-                      <div className="text-2xl font-bold text-blue-600 mb-2">
-                        {milestone.year}
-                      </div>
-                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                        {milestone.title}
-                      </h3>
-                      <p className="text-gray-600">{milestone.description}</p>
-                    </div>
-                  </div>
-                  <div className="md:w-1/2 flex justify-center">
-                    <div className="w-4 h-4 bg-blue-600 rounded-full relative z-10" />
-                  </div>
-                  <div className="md:w-1/2" />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Values for Tunisian Healthcare */}
-        <section className="mb-20">
-          <h2 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Our Core Values in Tunisian Healthcare
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div
-                key={index}
-                className="bg-white p-6 rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300"
-              >
-                <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center mb-4 text-blue-600 text-2xl">
-                  {value.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">
-                  {value.title}
-                </h3>
-                <p className="text-gray-600">{value.description}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Tunisian Team */}
-        <section id="team" className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Tunisian Leadership Team
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Experienced healthcare professionals dedicated to transforming
-              healthcare access in Tunisia
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-              >
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900">
-                    {member.name}
-                  </h3>
-                  <p className="text-blue-600 font-medium mb-1">
-                    {member.role}
-                  </p>
-                  <div className="text-gray-600 text-sm mb-3">
-                    {member.specialty} • {member.experience}
-                  </div>
-                  <div className="flex items-center pt-4 border-t border-gray-100">
-                    <span className="mr-2">📍</span>
-                    <span className="text-sm text-gray-600">
-                      Based in Tunisia
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Tunisian Accreditation */}
-        <section className="bg-gradient-to-r from-blue-50 to-teal-50 rounded-3xl p-8 md:p-12">
-          <div className="text-center">
-            <div className="flex items-center justify-center mb-6">
-              <span className="text-3xl mr-4 text-blue-600">🏛️</span>
-              <h2 className="text-3xl font-bold text-gray-900">
-                Tunisian Accreditations & Partnerships
-              </h2>
-            </div>
-            <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-              We partner with leading Tunisian healthcare organizations and
-              maintain compliance with all Tunisian Ministry of Health
-              regulations
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {[
-                { name: "Ministry of Health", desc: "Licensed Platform" },
-                { name: "CNAM Integration", desc: "Insurance Coverage" },
-                {
-                  name: "Hospital Partnerships",
-                  desc: "Major Tunisian Hospitals",
-                },
-                { name: "ISO Certified", desc: "Quality Standards" },
-              ].map((cert, index) => (
-                <div
-                  key={index}
-                  className="bg-white p-6 rounded-xl text-center"
-                >
-                  <div className="text-lg font-semibold text-gray-900 mb-1">
-                    {cert.name}
-                  </div>
-                  <div className="text-sm text-gray-600">{cert.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+      
+        
       </main>
 
       {/* Contact CTA with Tunisian info */}

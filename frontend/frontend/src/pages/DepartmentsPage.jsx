@@ -1,36 +1,495 @@
-// pages/DepartmentsPage.js - Admin Departments Management Page
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
-import {
-  Plus,
-  Edit,
-  Trash2,
-  Search,
-  Users,
-  Building,
-  Eye,
-  Download,
-  RefreshCw,
-  XCircle,
-  AlertCircle,
-  TrendingUp,
-  BarChart3,
-  Mail,
-  Phone,
-  Calendar,
-  Clock,
-  Shield,
-  Heart,
-  Brain,
-  Bone,
-  Baby,
-  Thermometer,
-  Filter,
-  SortAsc,
-  Grid,
-  List,
-  Image as ImageIcon,
-} from "lucide-react";
+
+// Custom SVG icons
+const IconPlus = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="12" y1="5" x2="12" y2="19"></line>
+    <line x1="5" y1="12" x2="19" y2="12"></line>
+  </svg>
+);
+
+const IconEdit = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+    <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+  </svg>
+);
+
+const IconTrash2 = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="3 6 5 6 21 6"></polyline>
+    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+    <line x1="10" y1="11" x2="10" y2="17"></line>
+    <line x1="14" y1="11" x2="14" y2="17"></line>
+  </svg>
+);
+
+const IconSearch = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+);
+
+const IconUsers = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+    <circle cx="9" cy="7" r="4"></circle>
+    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+  </svg>
+);
+
+const IconBuilding = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+  </svg>
+);
+
+const IconEye = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </svg>
+);
+
+const IconDownload = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+    <polyline points="7 10 12 15 17 10"></polyline>
+    <line x1="12" y1="15" x2="12" y2="3"></line>
+  </svg>
+);
+
+const IconRefreshCw = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="23 4 23 10 17 10"></polyline>
+    <polyline points="1 20 1 14 7 14"></polyline>
+    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+  </svg>
+);
+
+const IconXCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="15" y1="9" x2="9" y2="15"></line>
+    <line x1="9" y1="9" x2="15" y2="15"></line>
+  </svg>
+);
+
+const IconAlertCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" y1="8" x2="12" y2="12"></line>
+    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+  </svg>
+);
+
+const IconTrendingUp = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+    <polyline points="17 6 23 6 23 12"></polyline>
+  </svg>
+);
+
+const IconBarChart3 = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="12" y1="20" x2="12" y2="10"></line>
+    <line x1="18" y1="20" x2="18" y2="4"></line>
+    <line x1="6" y1="20" x2="6" y2="16"></line>
+  </svg>
+);
+
+const IconMail = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+    <polyline points="22,6 12,13 2,6"></polyline>
+  </svg>
+);
+
+const IconPhone = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+  </svg>
+);
+
+const IconCalendar = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+    <line x1="16" y1="2" x2="16" y2="6"></line>
+    <line x1="8" y1="2" x2="8" y2="6"></line>
+    <line x1="3" y1="10" x2="21" y2="10"></line>
+  </svg>
+);
+
+const IconClock = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <polyline points="12 6 12 12 16 14"></polyline>
+  </svg>
+);
+
+const IconShield = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+  </svg>
+);
+
+const IconHeart = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+  </svg>
+);
+
+const IconBrain = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 2.5 2.5 0 0 1 2.46-3.86H9.5V2z"></path>
+    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 2.5 2.5 0 0 0-2.46-3.86H14.5V2z"></path>
+  </svg>
+);
+
+const IconBone = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5l7-7z"></path>
+  </svg>
+);
+
+const IconBaby = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M9 12h.01"></path>
+    <path d="M15 12h.01"></path>
+    <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"></path>
+    <path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"></path>
+  </svg>
+);
+
+const IconThermometer = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+  </svg>
+);
+
+const IconFilter = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+  </svg>
+);
+
+const IconSortAsc = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="19 9 12 15 5 9"></polyline>
+  </svg>
+);
+
+const IconGrid = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="3" width="7" height="7"></rect>
+    <rect x="14" y="3" width="7" height="7"></rect>
+    <rect x="14" y="14" width="7" height="7"></rect>
+    <rect x="3" y="14" width="7" height="7"></rect>
+  </svg>
+);
+
+const IconList = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <line x1="8" y1="6" x2="21" y2="6"></line>
+    <line x1="8" y1="12" x2="21" y2="12"></line>
+    <line x1="8" y1="18" x2="21" y2="18"></line>
+    <line x1="3" y1="6" x2="3" y2="6"></line>
+    <line x1="3" y1="12" x2="3" y2="12"></line>
+    <line x1="3" y1="18" x2="3" y2="18"></line>
+  </svg>
+);
+
+const IconImage = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+    <circle cx="8.5" cy="8.5" r="1.5"></circle>
+    <polyline points="21 15 16 10 5 21"></polyline>
+  </svg>
+);
 
 const DepartmentsPage = () => {
   const [departments, setDepartments] = useState([]);
@@ -42,8 +501,8 @@ const DepartmentsPage = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [selectedDepartment, setSelectedDepartment] = useState(null);
-  const [viewMode, setViewMode] = useState("grid"); // grid or list
-  const [sortBy, setSortBy] = useState("name"); // name
+  const [viewMode, setViewMode] = useState("grid");
+  const [sortBy, setSortBy] = useState("name");
   const [formData, setFormData] = useState({
     name: "",
     description: "",
@@ -56,12 +515,10 @@ const DepartmentsPage = () => {
     oldest: null,
   });
 
-  // Fetch departments data
   useEffect(() => {
     fetchDepartments();
   }, []);
 
-  // Calculate statistics
   useEffect(() => {
     if (departments.length > 0) {
       const total = departments.length;
@@ -72,7 +529,6 @@ const DepartmentsPage = () => {
         ) / total,
       );
 
-      // Find newest and oldest departments (by creation date if available)
       const sortedByDate = [...departments].sort(
         (a, b) => new Date(b.createdAt || 0) - new Date(a.createdAt || 0),
       );
@@ -86,11 +542,9 @@ const DepartmentsPage = () => {
     }
   }, [departments]);
 
-  // Filter and sort departments
   useEffect(() => {
     let filtered = [...departments];
 
-    // Apply search filter
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -100,7 +554,6 @@ const DepartmentsPage = () => {
       );
     }
 
-    // Apply sorting
     filtered.sort((a, b) => {
       if (sortBy === "name") return a.name.localeCompare(b.name);
       return 0;
@@ -115,7 +568,7 @@ const DepartmentsPage = () => {
 
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "http://localhost:5000/departments/getDepts",
+        "http://localhost:3000/departments/getDepts",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -129,8 +582,6 @@ const DepartmentsPage = () => {
       }
 
       const data = await response.json();
-
-      // Handle different response structures
       const departmentsData = data.departments || data || [];
       setDepartments(departmentsData);
       setFilteredDepartments(departmentsData);
@@ -148,19 +599,18 @@ const DepartmentsPage = () => {
 
   const getDepartmentIcon = (name) => {
     const icons = {
-      Cardiology: <Heart className="w-5 h-5" />,
-      Neurology: <Brain className="w-5 h-5" />,
-      Orthopedics: <Bone className="w-5 h-5" />,
-      Pediatrics: <Baby className="w-5 h-5" />,
-      Radiology: <Shield className="w-5 h-5" />,
-      "General Practice": <Thermometer className="w-5 h-5" />,
+      Cardiology: <IconHeart />,
+      Neurology: <IconBrain />,
+      Orthopedics: <IconBone />,
+      Pediatrics: <IconBaby />,
+      Radiology: <IconShield />,
+      "General Practice": <IconThermometer />,
     };
-    return icons[name] || <Building className="w-5 h-5" />;
+    return icons[name] || <IconBuilding />;
   };
 
   const handleAddDepartment = async () => {
     try {
-      // Validate form
       if (!formData.name) {
         toast.error("Department name is required");
         return;
@@ -168,7 +618,7 @@ const DepartmentsPage = () => {
 
       const token = localStorage.getItem("token");
       const response = await fetch(
-        "http://localhost:5000/departments/createDept",
+        "http://localhost:3000/departments/createDept",
         {
           method: "POST",
           headers: {
@@ -185,8 +635,6 @@ const DepartmentsPage = () => {
       }
 
       const newDepartment = await response.json();
-
-      // Add to local state
       setDepartments([
         ...departments,
         newDepartment.department || newDepartment,
@@ -206,7 +654,7 @@ const DepartmentsPage = () => {
 
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/departments/updateDept/${selectedDepartment._id}`,
+        `http://localhost:3000/departments/updateDept/${selectedDepartment._id}`,
         {
           method: "PUT",
           headers: {
@@ -223,8 +671,6 @@ const DepartmentsPage = () => {
       }
 
       const updatedDepartment = await response.json();
-
-      // Update local state
       setDepartments(
         departments.map((dept) =>
           dept._id === selectedDepartment._id
@@ -247,7 +693,7 @@ const DepartmentsPage = () => {
 
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/departments/deleteDept/${selectedDepartment._id}`,
+        `http://localhost:3000/departments/deleteDept/${selectedDepartment._id}`,
         {
           method: "DELETE",
           headers: {
@@ -261,7 +707,6 @@ const DepartmentsPage = () => {
         throw new Error(errorData.msg || "Failed to delete department");
       }
 
-      // Remove from local state
       setDepartments(
         departments.filter((dept) => dept._id !== selectedDepartment._id),
       );
@@ -321,7 +766,6 @@ const DepartmentsPage = () => {
     </div>
   );
 
-  // Loading state
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -330,7 +774,7 @@ const DepartmentsPage = () => {
             <div className="relative mb-8">
               <div className="w-20 h-20 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin"></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Building className="w-8 h-8 text-blue-600" />
+                <IconBuilding />
               </div>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -364,8 +808,8 @@ const DepartmentsPage = () => {
                 onClick={fetchDepartments}
                 className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors flex items-center hover:shadow-sm"
               >
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Refresh
+                <IconRefreshCw />
+                <span className="ml-2">Refresh</span>
               </button>
               <button
                 onClick={() => {
@@ -374,8 +818,8 @@ const DepartmentsPage = () => {
                 }}
                 className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition-all duration-200 flex items-center shadow-md hover:shadow-lg"
               >
-                <Plus className="w-4 h-4 mr-2" />
-                Add Department
+                <IconPlus />
+                <span className="ml-2">Add Department</span>
               </button>
             </div>
           </div>
@@ -385,14 +829,13 @@ const DepartmentsPage = () => {
             <StatCard
               title="Total Departments"
               value={stats.total}
-              icon={<Building className="w-6 h-6" />}
+              icon={<IconBuilding />}
               color="bg-blue-100"
-              trend={5}
             />
             <StatCard
               title="Avg Description Length"
               value={stats.avgLength}
-              icon={<BarChart3 className="w-6 h-6" />}
+              icon={<IconBarChart3 />}
               color="bg-green-100"
               subtitle="characters"
             />
@@ -403,7 +846,7 @@ const DepartmentsPage = () => {
                   ? stats.newest.name.substring(0, 12) + "..."
                   : "N/A"
               }
-              icon={<TrendingUp className="w-6 h-6" />}
+              icon={<IconTrendingUp />}
               color="bg-purple-100"
             />
             <StatCard
@@ -413,7 +856,7 @@ const DepartmentsPage = () => {
                   ? stats.oldest.name.substring(0, 12) + "..."
                   : "N/A"
               }
-              icon={<Clock className="w-6 h-6" />}
+              icon={<IconClock />}
               color="bg-yellow-100"
             />
           </div>
@@ -423,7 +866,9 @@ const DepartmentsPage = () => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex-1">
                 <div className="relative max-w-lg">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <IconSearch />
+                  </div>
                   <input
                     type="text"
                     placeholder="Search departments by name or description..."
@@ -439,13 +884,13 @@ const DepartmentsPage = () => {
                     onClick={() => setViewMode("grid")}
                     className={`px-3 py-2 rounded-md transition-all ${viewMode === "grid" ? "bg-white shadow-sm text-blue-600" : "text-gray-600 hover:text-gray-900"}`}
                   >
-                    <Grid className="w-4 h-4" />
+                    <IconGrid />
                   </button>
                   <button
                     onClick={() => setViewMode("list")}
                     className={`px-3 py-2 rounded-md transition-all ${viewMode === "list" ? "bg-white shadow-sm text-blue-600" : "text-gray-600 hover:text-gray-900"}`}
                   >
-                    <List className="w-4 h-4" />
+                    <IconList />
                   </button>
                 </div>
                 <div className="relative">
@@ -456,7 +901,9 @@ const DepartmentsPage = () => {
                   >
                     <option value="name">Sort by Name</option>
                   </select>
-                  <SortAsc className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none w-4 h-4" />
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                    <IconSortAsc />
+                  </div>
                 </div>
                 {searchQuery && (
                   <button
@@ -482,7 +929,7 @@ const DepartmentsPage = () => {
               <div className="h-48 bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center relative overflow-hidden">
                 {department.image ? (
                   <img
-                    src={`http://localhost:5000/${department.image.replace(/^[\\/]+/, "")}`}
+                    src={`http://localhost:3000/${department.image.replace(/^[\\/]+/, "")}`}
                     alt={department.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     onError={(e) => {
@@ -506,7 +953,7 @@ const DepartmentsPage = () => {
                     className="p-2 bg-white/90 backdrop-blur-sm text-blue-600 hover:text-blue-800 hover:bg-white rounded-lg transition-colors"
                     title="View Details"
                   >
-                    <Eye className="w-4 h-4" />
+                    <IconEye />
                   </button>
                 </div>
               </div>
@@ -540,14 +987,14 @@ const DepartmentsPage = () => {
                       className="p-2 text-yellow-600 hover:text-yellow-800 hover:bg-yellow-50 rounded-lg transition-colors"
                       title="Edit"
                     >
-                      <Edit className="w-4 h-4" />
+                      <IconEdit />
                     </button>
                     <button
                       onClick={() => openDeleteModal(department)}
                       className="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-colors"
                       title="Delete"
                     >
-                      <Trash2 className="w-4 h-4" />
+                      <IconTrash2 />
                     </button>
                   </div>
                 </div>
@@ -559,7 +1006,7 @@ const DepartmentsPage = () => {
         {/* Empty State */}
         {filteredDepartments.length === 0 && !loading && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-12 text-center">
-            <Building className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+            <IconBuilding />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">
               {searchQuery ? "No departments found" : "No departments yet"}
             </h3>
@@ -584,8 +1031,8 @@ const DepartmentsPage = () => {
                 }}
                 className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
               >
-                <Plus className="w-4 h-4 inline mr-2" />
-                Add First Department
+                <IconPlus />
+                <span className="ml-2">Add First Department</span>
               </button>
             </div>
           </div>
@@ -600,7 +1047,7 @@ const DepartmentsPage = () => {
             <div className="h-64 bg-gradient-to-br from-blue-50 to-blue-100 relative overflow-hidden">
               {selectedDepartment.image ? (
                 <img
-                  src={`http://localhost:5000/${selectedDepartment.image.replace(/^[\\/]+/, "")}`}
+                  src={`http://localhost:3000/${selectedDepartment.image.replace(/^[\\/]+/, "")}`}
                   alt={selectedDepartment.name}
                   className="w-full h-full object-cover"
                   onError={(e) => {
@@ -625,7 +1072,7 @@ const DepartmentsPage = () => {
                 }}
                 className="absolute top-4 right-4 p-2 bg-white/90 backdrop-blur-sm text-gray-600 hover:text-gray-900 rounded-lg transition-colors"
               >
-                <XCircle className="w-6 h-6" />
+                <IconXCircle />
               </button>
             </div>
 
@@ -676,8 +1123,8 @@ const DepartmentsPage = () => {
                   }}
                   className="flex-1 px-6 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-white font-semibold rounded-xl transition-all duration-200 shadow-md hover:shadow-lg"
                 >
-                  <Edit className="w-4 h-4 inline mr-2" />
-                  Edit Department
+                  <IconEdit />
+                  <span className="ml-2">Edit Department</span>
                 </button>
                 <button
                   onClick={() => {
@@ -708,7 +1155,7 @@ const DepartmentsPage = () => {
                   }}
                   className="p-2 hover:bg-white/20 rounded-lg transition-colors"
                 >
-                  <XCircle className="w-6 h-6" />
+                  <IconXCircle />
                 </button>
               </div>
             </div>
@@ -759,7 +1206,7 @@ const DepartmentsPage = () => {
                       className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="https://example.com/image.jpg"
                     />
-                    <ImageIcon className="w-5 h-5 text-gray-400" />
+                    <IconImage />
                   </div>
                   <p className="text-xs text-gray-500 mt-2">
                     Provide a URL to an image for this department
@@ -803,7 +1250,7 @@ const DepartmentsPage = () => {
                   }}
                   className="p-2 hover:bg-white/20 rounded-lg transition-colors"
                 >
-                  <XCircle className="w-6 h-6" />
+                  <IconXCircle />
                 </button>
               </div>
             </div>
@@ -852,7 +1299,7 @@ const DepartmentsPage = () => {
                       className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       placeholder="https://example.com/image.jpg"
                     />
-                    <ImageIcon className="w-5 h-5 text-gray-400" />
+                    <IconImage />
                   </div>
                 </div>
               </div>
@@ -886,7 +1333,7 @@ const DepartmentsPage = () => {
             <div className="bg-gradient-to-r from-red-500 to-red-600 p-6 text-white">
               <div className="flex items-center justify-center mb-4">
                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                  <AlertCircle className="w-8 h-8 text-white" />
+                  <IconAlertCircle />
                 </div>
               </div>
               <h3 className="text-2xl font-bold text-center mb-2">
@@ -915,8 +1362,8 @@ const DepartmentsPage = () => {
 
                 <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-100">
                   <div className="flex items-start">
-                    <AlertCircle className="w-5 h-5 text-yellow-600 mr-3 mt-0.5 flex-shrink-0" />
-                    <div className="text-sm text-yellow-800">
+                    <IconAlertCircle />
+                    <div className="text-sm text-yellow-800 ml-3">
                       <strong className="font-semibold">Warning:</strong> This
                       action cannot be undone. All department data will be
                       permanently deleted.
