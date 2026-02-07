@@ -13,7 +13,7 @@ function Departments() {
         setError(null); // Clear previous errors
 
         const response = await fetch(
-          "http://localhost:5000/departments/getDepts",
+          "http://localhost:3000/departments/getDepts",
           {
             method: "GET",
             headers: {
@@ -122,7 +122,7 @@ function Departments() {
                 const fetchDepartments = async () => {
                   try {
                     const response = await fetch(
-                      "http://localhost:5000/departments/getDepts",
+                      "http://localhost:3000/departments/getDepts",
                     );
                     if (!response.ok) throw new Error("Failed to fetch");
                     const data = await response.json();

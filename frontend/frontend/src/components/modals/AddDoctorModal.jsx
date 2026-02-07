@@ -24,7 +24,7 @@ const AddDoctorModal = ({ doctor, onClose, onSuccess }) => {
         image: null,
       });
       if (doctor.image) {
-        setPreviewUrl(`http://localhost:5000/pic-uploads/${doctor.image}`);
+        setPreviewUrl(`http://localhost:3000/pic-uploads/${doctor.image}`);
       }
     }
   }, [doctor]);
@@ -47,7 +47,7 @@ const AddDoctorModal = ({ doctor, onClose, onSuccess }) => {
     } else {
       setPreviewUrl(
         doctor?.image
-          ? `http://localhost:5000/pic-uploads/${doctor.image}`
+          ? `http://localhost:3000/pic-uploads/${doctor.image}`
           : "",
       );
     }
@@ -69,8 +69,8 @@ const AddDoctorModal = ({ doctor, onClose, onSuccess }) => {
 
     try {
       const url = isEditing
-        ? `http://localhost:5000/doctors/updateDoctor/${doctor._id}`
-        : "http://localhost:5000/doctors/addDoctors";
+        ? `http://localhost:3000/doctors/updateDoctor/${doctor._id}`
+        : "http://localhost:3000/doctors/addDoctors";
 
       const method = isEditing ? "PUT" : "POST";
 
@@ -246,7 +246,6 @@ const AddDoctorModal = ({ doctor, onClose, onSuccess }) => {
                       onChange={handleFileChange}
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
-                   
                   </div>
                   <p className="text-xs text-gray-500 mt-2">
                     Recommended: Square image, at least 400x400 pixels
