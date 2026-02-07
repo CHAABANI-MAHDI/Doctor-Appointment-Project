@@ -17,7 +17,6 @@ router.get("/count", async (req, res) => {
       .json({ msg: "Server error ⛔⛔", error: error.message });
   }
 });
-export default router;
 
 //=============================== ###  Register User ### ==============================
 router.post("/register", async (req, res) => {
@@ -38,6 +37,7 @@ router.post("/register", async (req, res) => {
     email,
     password: hashedPassword,
     role,
+    status: "active",
   });
 
   let token = jwt.sign(
@@ -54,6 +54,7 @@ router.post("/register", async (req, res) => {
       name: newUser.name,
       email: newUser.email,
       role: newUser.role,
+      status: newUser.status,
     },
   });
 });
@@ -65,7 +66,14 @@ router.post("/signin", async (req, res) => {
     return res.status(400).json({ msg: "Email and password are required ⛔ " });
 
   const user = await User.findOne({ email });
-  if (!user) res.status(400).json({ msg: "User Not Found ⛔⛔" });
+  if (!user) return res.status(400).json({ msg: "User Not Found ⛔⛔" });
+
+  // Check if user is blocked
+  if (user.status === "blocked") {
+    return res.status(403).json({
+      msg: "Your account has been blocked. Please contact support ⛔",
+    });
+  }
 
   const match = await bcrypt.compare(password, user.password);
   if (!match)
@@ -85,6 +93,9 @@ router.post("/signin", async (req, res) => {
       name: user.name,
       email: user.email,
       role: user.role,
+      status: user.status,
     },
   });
 });
+
+export default router;
