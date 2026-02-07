@@ -12,6 +12,10 @@ import Departments from "./pages/DepartmentsPage.jsx";
 import UsersPage from "./pages/usersAPage.jsx";
 import ServicesPage from "./pages/servicesPage.jsx";
 import AboutUsPage from "./pages/aboutUsPage.jsx";
+import DoctorAppointmentsPage from "./pages/DoctorAppointmentsPage.jsx";
+import UserProfilePage from "./pages/UserProfilePage.jsx";
+import DoctorProfilePage from "./pages/DoctorProfilePage.jsx";
+import AdminProfilePage from "./pages/AdminProfilePage.jsx";
 
 function App() {
   return (
@@ -26,6 +30,14 @@ function App() {
         <Route index path="/about-us" element={<AboutUsPage />} />
         <Route index path="/add-appointment" element={<AddAppointment />} />
         <Route index path="/my-appointments" element={<MyAppointments />} />
+        <Route
+          index
+          path="/doctor-appointments"
+          element={<DoctorAppointmentsPage />}
+        />
+        <Route index path="/profile" element={<UserProfilePage />} />
+        <Route index path="/doctor-profile" element={<DoctorProfilePage />} />
+        <Route index path="/admin-profile" element={<AdminProfilePage />} />
         <Route index path="/admin-overview" element={<OverviewPage />} />
         <Route index path="/admin-doctors" element={<DoctorsPage />} />
         <Route index path="/admin-appointments" element={<Appointments />} />
