@@ -1,4 +1,3 @@
-// DoctorSchema.js should look like this:
 import mongoose from "mongoose";
 
 const DoctorSchema = new mongoose.Schema(
@@ -20,8 +19,28 @@ const DoctorSchema = new mongoose.Schema(
       required: true,
     },
     image: {
-      type: String, // Make sure this is just a String with no transformations
+      type: String,
       required: true,
+    },
+    consultationFee: {
+      type: Number,
+      default: 150,
+    },
+    department: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Departments",
+    },
+    email: {
+      type: String,
+      unique: true,
+      sparse: true,
+    },
+    phone: {
+      type: String,
+    },
+    availability: {
+      type: Boolean,
+      default: true,
     },
   },
   { timestamps: true },
