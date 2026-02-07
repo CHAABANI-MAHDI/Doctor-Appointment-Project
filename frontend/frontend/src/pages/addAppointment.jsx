@@ -3,31 +3,396 @@
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate, Link } from "react-router-dom";
-import {
-  Calendar,
-  Clock,
-  User,
-  Star,
-  Award,
-  Shield,
-  CheckCircle,
-  ChevronRight,
-  Search,
-  Filter,
-  MapPin,
-  Phone,
-  Mail,
-  ChevronLeft,
-  ChevronDown,
-  Info,
-  FileText,
-  Heart,
-  Brain,
-  Eye,
-  Bone,
-  Baby,
-  Thermometer,
-} from "lucide-react";
+
+// Custom SVG icons
+const IconCalendar = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+    <line x1="16" y1="2" x2="16" y2="6"></line>
+    <line x1="8" y1="2" x2="8" y2="6"></line>
+    <line x1="3" y1="10" x2="21" y2="10"></line>
+  </svg>
+);
+
+const IconClock = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <polyline points="12 6 12 12 16 14"></polyline>
+  </svg>
+);
+
+const IconUser = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+    <circle cx="12" cy="7" r="4"></circle>
+  </svg>
+);
+
+const IconStar = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+  </svg>
+);
+
+const IconAward = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="8" r="7"></circle>
+    <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+  </svg>
+);
+
+const IconShield = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+  </svg>
+);
+
+const IconCheckCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+  </svg>
+);
+
+const IconChevronRight = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+);
+
+const IconSearch = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+);
+
+const IconFilter = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+  </svg>
+);
+
+const IconMapPin = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+    <circle cx="12" cy="10" r="3"></circle>
+  </svg>
+);
+
+const IconPhone = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+  </svg>
+);
+
+const IconMail = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+    <polyline points="22,6 12,13 2,6"></polyline>
+  </svg>
+);
+
+const IconChevronLeft = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="15 18 9 12 15 6"></polyline>
+  </svg>
+);
+
+const IconChevronDown = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </svg>
+);
+
+const IconInfo = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" y1="16" x2="12" y2="12"></line>
+    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+  </svg>
+);
+
+const IconFileText = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+    <polyline points="14 2 14 8 20 8"></polyline>
+    <line x1="16" y1="13" x2="8" y2="13"></line>
+    <line x1="16" y1="17" x2="8" y2="17"></line>
+    <polyline points="10 9 9 9 8 9"></polyline>
+  </svg>
+);
+
+const IconHeart = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+  </svg>
+);
+
+const IconBrain = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 2.5 2.5 0 0 1 2.46-3.86H9.5V2z"></path>
+    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 2.5 2.5 0 0 0-2.46-3.86H14.5V2z"></path>
+  </svg>
+);
+
+const IconEye = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </svg>
+);
+
+const IconBone = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5l7-7z"></path>
+  </svg>
+);
+
+const IconBaby = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M9 12h.01"></path>
+    <path d="M15 12h.01"></path>
+    <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"></path>
+    <path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"></path>
+  </svg>
+);
+
+const IconThermometer = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+  </svg>
+);
 
 function AddAppointment() {
   const navigate = useNavigate();
@@ -40,37 +405,37 @@ function AddAppointment() {
     {
       id: "cardiology",
       name: "Cardiology",
-      icon: <Heart className="w-5 h-5" />,
+      icon: <IconHeart />,
       color: "text-red-500",
     },
     {
       id: "neurology",
       name: "Neurology",
-      icon: <Brain className="w-5 h-5" />,
+      icon: <IconBrain />,
       color: "text-purple-500",
     },
     {
       id: "orthopedics",
       name: "Orthopedics",
-      icon: <Bone className="w-5 h-5" />,
+      icon: <IconBone />,
       color: "text-blue-500",
     },
     {
       id: "pediatrics",
       name: "Pediatrics",
-      icon: <Baby className="w-5 h-5" />,
+      icon: <IconBaby />,
       color: "text-pink-500",
     },
     {
       id: "general",
       name: "General Practice",
-      icon: <Thermometer className="w-5 h-5" />,
+      icon: <IconThermometer />,
       color: "text-green-500",
     },
     {
       id: "ophthalmology",
       name: "Ophthalmology",
-      icon: <Eye className="w-5 h-5" />,
+      icon: <IconEye />,
       color: "text-indigo-500",
     },
   ]);
@@ -181,7 +546,7 @@ function AddAppointment() {
   useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const res = await fetch("http://localhost:5000/doctors/getDoctors");
+        const res = await fetch("http://localhost:3000/doctors/getDoctors");
         if (!res.ok) throw new Error("Failed to fetch doctors");
         const data = await res.json();
         const doctorsList = data.doctors || [];
@@ -354,7 +719,7 @@ function AddAppointment() {
       };
 
       const res = await fetch(
-        "http://localhost:5000/appointments/createAppointment",
+        "http://localhost:3000/appointments/createAppointment",
         {
           method: "POST",
           headers: {
@@ -429,7 +794,7 @@ function AddAppointment() {
         <div className="bg-white p-10 rounded-2xl shadow-xl text-center max-w-md w-full border border-blue-100">
           <div className="mb-6">
             <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center mx-auto shadow-md">
-              <User className="w-10 h-10 text-white" />
+              <IconUser />
             </div>
           </div>
           <h2 className="text-3xl font-bold text-gray-900 mb-3">
@@ -452,8 +817,6 @@ function AddAppointment() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-     
-     
       {/* Main Content */}
       <main className="container mx-auto px-4 sm:px-6 py-8">
         {/* Progress Steps */}
@@ -522,10 +885,9 @@ function AddAppointment() {
 
                     {/* Search Bar */}
                     <div className="relative mb-6">
-                      <Search
-                        className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-                        size={20}
-                      />
+                      <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                        <IconSearch />
+                      </div>
                       <input
                         type="text"
                         placeholder="Search by doctor name, specialty, or expertise..."
@@ -546,7 +908,7 @@ function AddAppointment() {
                           className={`flex flex-col items-center justify-center p-4 rounded-xl border-2 transition-all ${selectedSpecialty === "all" ? "border-blue-500 bg-blue-50" : "border-gray-200 hover:border-gray-300 bg-white"}`}
                         >
                           <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mb-2">
-                            <Filter className="w-5 h-5 text-gray-600" />
+                            <IconFilter />
                           </div>
                           <span className="text-sm font-medium text-gray-700">
                             All
@@ -602,7 +964,7 @@ function AddAppointment() {
                                 <div className="w-16 h-16 rounded-xl overflow-hidden bg-gradient-to-br from-blue-50 to-blue-100 border-2 border-blue-100">
                                   {doctor.image ? (
                                     <img
-                                      src={`http://localhost:5000/pic-uploads/${doctor.image}`}
+                                      src={`http://localhost:3000/pic-uploads/${doctor.image}`}
                                       alt={doctor.name}
                                       className="w-full h-full object-cover"
                                       onError={(e) => {
@@ -632,7 +994,7 @@ function AddAppointment() {
                                       </p>
                                     </div>
                                     <div className="flex items-center space-x-1">
-                                      <Star className="w-5 h-5 text-yellow-400 fill-current" />
+                                      <IconStar />
                                       <span className="font-semibold text-gray-900">
                                         4.8
                                       </span>
@@ -644,15 +1006,15 @@ function AddAppointment() {
 
                                   <div className="flex items-center space-x-6 mt-3">
                                     <div className="flex items-center text-gray-600">
-                                      <Award className="w-4 h-4 mr-2 text-blue-500" />
-                                      <span className="text-sm">
+                                      <IconAward />
+                                      <span className="text-sm ml-2">
                                         {doctor.experienceYears || 10}+ years
                                         experience
                                       </span>
                                     </div>
                                     <div className="flex items-center text-gray-600">
-                                      <Clock className="w-4 h-4 mr-2 text-blue-500" />
-                                      <span className="text-sm">
+                                      <IconClock />
+                                      <span className="text-sm ml-2">
                                         30 min consultation
                                       </span>
                                     </div>
@@ -681,10 +1043,9 @@ function AddAppointment() {
                         </div>
                       ) : (
                         <div className="text-center py-16 bg-gray-50 rounded-2xl">
-                          <Search
-                            className="mx-auto text-gray-400 mb-4"
-                            size={56}
-                          />
+                          <div className="mx-auto text-gray-400 mb-4">
+                            <IconSearch />
+                          </div>
                           <h3 className="text-2xl font-semibold text-gray-900 mb-2">
                             No doctors found
                           </h3>
@@ -759,7 +1120,7 @@ function AddAppointment() {
                                 onClick={prevMonth}
                                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                               >
-                                <ChevronLeft className="w-5 h-5 text-gray-600" />
+                                <IconChevronLeft />
                               </button>
                               <span className="font-semibold text-gray-900">
                                 {monthNames[selectedMonth]} {selectedYear}
@@ -768,7 +1129,7 @@ function AddAppointment() {
                                 onClick={nextMonth}
                                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
                               >
-                                <ChevronRight className="w-5 h-5 text-gray-600" />
+                                <IconChevronRight />
                               </button>
                             </div>
                           </div>
@@ -840,7 +1201,9 @@ function AddAppointment() {
                                   )}
                                 </div>
                               </div>
-                              <Calendar className="w-6 h-6 text-blue-500" />
+                              <div className="text-blue-500">
+                                <IconCalendar />
+                              </div>
                             </div>
                           </div>
                         )}
@@ -894,17 +1257,18 @@ function AddAppointment() {
                                       }
                                     </div>
                                   </div>
-                                  <Clock className="w-6 h-6 text-green-500" />
+                                  <div className="text-green-500">
+                                    <IconClock />
+                                  </div>
                                 </div>
                               </div>
                             )}
                           </div>
                         ) : (
                           <div className="text-center py-12 bg-gray-50 rounded-2xl">
-                            <Calendar
-                              className="mx-auto text-gray-400 mb-4"
-                              size={48}
-                            />
+                            <div className="mx-auto text-gray-400 mb-4">
+                              <IconCalendar />
+                            </div>
                             <p className="text-gray-600">
                               Please select a date to view available time slots
                             </p>
@@ -1018,8 +1382,8 @@ function AddAppointment() {
                               `${reasonCharCount}/500 characters`}
                           </p>
                           <div className="text-sm text-gray-500">
-                            <FileText className="inline w-4 h-4 mr-1" />
-                            Required
+                            <IconFileText />
+                            <span className="ml-1">Required</span>
                           </div>
                         </div>
                       </div>
@@ -1027,8 +1391,8 @@ function AddAppointment() {
                       {/* Additional Notes */}
                       <div className="bg-yellow-50 rounded-xl p-4 border border-yellow-100">
                         <div className="flex items-start">
-                          <Info className="w-5 h-5 text-yellow-600 mr-3 mt-0.5 flex-shrink-0" />
-                          <div className="text-sm text-yellow-800">
+                          <IconInfo />
+                          <div className="text-sm text-yellow-800 ml-3">
                             <strong className="font-semibold">
                               Important:
                             </strong>{" "}
@@ -1107,8 +1471,8 @@ function AddAppointment() {
 
                   <div className="space-y-4">
                     <div className="flex items-center">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
-                      <div>
+                      <IconCheckCircle />
+                      <div className="ml-3">
                         <div className="font-medium text-gray-900">
                           Insurance Accepted
                         </div>
@@ -1118,8 +1482,8 @@ function AddAppointment() {
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
-                      <div>
+                      <IconCheckCircle />
+                      <div className="ml-3">
                         <div className="font-medium text-gray-900">
                           No Hidden Fees
                         </div>
@@ -1129,8 +1493,8 @@ function AddAppointment() {
                       </div>
                     </div>
                     <div className="flex items-center">
-                      <CheckCircle className="w-5 h-5 text-green-500 mr-3" />
-                      <div>
+                      <IconCheckCircle />
+                      <div className="ml-3">
                         <div className="font-medium text-gray-900">
                           Easy Cancellation
                         </div>
@@ -1175,7 +1539,7 @@ function AddAppointment() {
               <div className="flex-shrink-0">
                 {notification.type === "success" ? (
                   <div className="w-10 h-10 bg-green-100 rounded-lg flex items-center justify-center text-green-600">
-                    <CheckCircle size={24} />
+                    <IconCheckCircle />
                   </div>
                 ) : (
                   <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center text-red-600">
@@ -1233,7 +1597,7 @@ function AddAppointment() {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6 text-white">
               <div className="flex items-center justify-center mb-4">
                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                  <CheckCircle className="w-8 h-8 text-white" />
+                  <IconCheckCircle />
                 </div>
               </div>
               <h3 className="text-2xl font-bold text-center mb-2">
@@ -1278,7 +1642,7 @@ function AddAppointment() {
                       )}
                     </div>
                   </div>
-                  <Calendar className="w-5 h-5 text-gray-400" />
+                  <IconCalendar />
                 </div>
                 <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                   <div>

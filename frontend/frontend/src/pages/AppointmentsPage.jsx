@@ -1,22 +1,254 @@
 import React, { useState, useEffect, useContext } from "react";
 import { toast } from "react-toastify";
 import { AuthContext } from "../context/AuthContext";
-import {
-  Calendar,
-  Clock,
-  User,
-  Search,
-  Download,
-  Eye,
-  Trash2,
-  CheckCircle,
-  XCircle,
-  AlertCircle,
-  ChevronDown,
-  RefreshCw,
-  FileText,
-  Shield,
-} from "lucide-react";
+
+// Custom SVG icons
+const IconCalendar = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+    <line x1="16" y1="2" x2="16" y2="6"></line>
+    <line x1="8" y1="2" x2="8" y2="6"></line>
+    <line x1="3" y1="10" x2="21" y2="10"></line>
+  </svg>
+);
+
+const IconClock = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <polyline points="12 6 12 12 16 14"></polyline>
+  </svg>
+);
+
+const IconUser = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+    <circle cx="12" cy="7" r="4"></circle>
+  </svg>
+);
+
+const IconSearch = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+);
+
+const IconDownload = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+    <polyline points="7 10 12 15 17 10"></polyline>
+    <line x1="12" y1="15" x2="12" y2="3"></line>
+  </svg>
+);
+
+const IconEye = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+    <circle cx="12" cy="12" r="3"></circle>
+  </svg>
+);
+
+const IconTrash2 = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="3 6 5 6 21 6"></polyline>
+    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+    <line x1="10" y1="11" x2="10" y2="17"></line>
+    <line x1="14" y1="11" x2="14" y2="17"></line>
+  </svg>
+);
+
+const IconCheckCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+  </svg>
+);
+
+const IconXCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="15" y1="9" x2="9" y2="15"></line>
+    <line x1="9" y1="9" x2="15" y2="15"></line>
+  </svg>
+);
+
+const IconAlertCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" y1="8" x2="12" y2="12"></line>
+    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+  </svg>
+);
+
+const IconChevronDown = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </svg>
+);
+
+const IconRefreshCw = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="23 4 23 10 17 10"></polyline>
+    <polyline points="1 20 1 14 7 14"></polyline>
+    <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+  </svg>
+);
+
+const IconFileText = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+    <polyline points="14 2 14 8 20 8"></polyline>
+    <line x1="16" y1="13" x2="8" y2="13"></line>
+    <line x1="16" y1="17" x2="8" y2="17"></line>
+    <polyline points="10 9 9 9 8 9"></polyline>
+  </svg>
+);
+
+const IconShield = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+  </svg>
+);
 
 const AppointmentsPage = () => {
   const { user } = useContext(AuthContext);
@@ -49,15 +281,13 @@ const AppointmentsPage = () => {
     calculateStats();
   }, [appointments]);
 
-  // Fetch appointments based on role
   const fetchAppointments = async () => {
     try {
       setLoading(true);
       const token = localStorage.getItem("token");
 
-      // Use the same endpoint - it handles role-based filtering on backend
       const response = await fetch(
-        "http://localhost:5000/appointments/getAppointment",
+        "http://localhost:3000/appointments/getAppointment",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -79,7 +309,6 @@ const AppointmentsPage = () => {
     }
   };
 
-  // Calculate stats from appointments
   const calculateStats = () => {
     const total = appointments.length;
     const confirmed = appointments.filter(
@@ -118,13 +347,12 @@ const AppointmentsPage = () => {
     });
   };
 
-  // Handle status update
   const handleStatusUpdate = async (appointmentId, newStatus) => {
     setUpdatingStatus(appointmentId);
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/appointments/updateStatus/${appointmentId}`,
+        `http://localhost:3000/appointments/updateStatus/${appointmentId}`,
         {
           method: "PATCH",
           headers: {
@@ -140,7 +368,6 @@ const AppointmentsPage = () => {
         throw new Error(errorData.msg || "Failed to update status");
       }
 
-      // Update local state
       setAppointments((prev) =>
         prev.map((app) =>
           app._id === appointmentId ? { ...app, status: newStatus } : app,
@@ -156,7 +383,6 @@ const AppointmentsPage = () => {
     }
   };
 
-  // Handle appointment deletion
   const handleDeleteAppointment = async (appointmentId) => {
     if (!window.confirm("Are you sure you want to delete this appointment?")) {
       return;
@@ -165,7 +391,7 @@ const AppointmentsPage = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:5000/appointments/deleteAppoitement/${appointmentId}`,
+        `http://localhost:3000/appointments/deleteAppoitement/${appointmentId}`,
         {
           method: "DELETE",
           headers: {
@@ -179,7 +405,6 @@ const AppointmentsPage = () => {
         throw new Error(errorData.msg || "Failed to delete appointment");
       }
 
-      // Remove from local state
       setAppointments((prev) =>
         prev.filter((app) => app._id !== appointmentId),
       );
@@ -190,9 +415,7 @@ const AppointmentsPage = () => {
     }
   };
 
-  // Filter appointments
   const filteredAppointments = appointments.filter((appointment) => {
-    // Search filter
     const matchesSearch =
       searchQuery === "" ||
       (appointment.user?.name || "")
@@ -205,12 +428,10 @@ const AppointmentsPage = () => {
         .toLowerCase()
         .includes(searchQuery.toLowerCase());
 
-    // Status filter
     const matchesStatus =
       statusFilter === "all" ||
       (appointment.status || "").toLowerCase() === statusFilter.toLowerCase();
 
-    // Date filter
     const matchesDate =
       dateFilter === "" ||
       new Date(appointment.date).toDateString() ===
@@ -219,7 +440,6 @@ const AppointmentsPage = () => {
     return matchesSearch && matchesStatus && matchesDate;
   });
 
-  // Get status badge styling
   const getStatusBadge = (status) => {
     const statusLower = (status || "").toLowerCase();
     const styles = {
@@ -233,24 +453,22 @@ const AppointmentsPage = () => {
     );
   };
 
-  // Get status icon
   const getStatusIcon = (status) => {
     const statusLower = (status || "").toLowerCase();
     switch (statusLower) {
       case "confirmed":
-        return <CheckCircle className="w-4 h-4" />;
+        return <IconCheckCircle />;
       case "pending":
-        return <AlertCircle className="w-4 h-4" />;
+        return <IconAlertCircle />;
       case "cancelled":
-        return <XCircle className="w-4 h-4" />;
+        return <IconXCircle />;
       case "completed":
-        return <CheckCircle className="w-4 h-4" />;
+        return <IconCheckCircle />;
       default:
-        return <AlertCircle className="w-4 h-4" />;
+        return <IconAlertCircle />;
     }
   };
 
-  // Format date for display
   const formatDate = (dateString) => {
     if (!dateString) return "Date not set";
 
@@ -276,17 +494,15 @@ const AppointmentsPage = () => {
     });
   };
 
-  // Get doctor image URL
   const getDoctorImageUrl = (doctor) => {
     if (!doctor) return null;
     if (doctor.image) {
       const cleanImage = doctor.image.replace(/^[\\/]+/, "");
-      return `http://localhost:5000/${cleanImage}`;
+      return `http://localhost:3000/${cleanImage}`;
     }
     return null;
   };
 
-  // Stat card component
   const StatCard = ({ label, value, color, icon }) => (
     <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 hover:shadow-md transition-shadow duration-200">
       <div className="flex items-center justify-between">
@@ -305,7 +521,6 @@ const AppointmentsPage = () => {
     </div>
   );
 
-  // Appointment row component
   const AppointmentRow = ({ appointment }) => {
     const doctorName =
       appointment.doctorName || appointment.doctor?.name || "Unknown Doctor";
@@ -364,8 +579,8 @@ const AppointmentsPage = () => {
             {formatDate(appointment.date)}
           </div>
           <div className="text-xs text-gray-500 flex items-center mt-1">
-            <Clock className="w-3 h-3 mr-1" />
-            Duration: 30 mins
+            <IconClock />
+            <span className="ml-1">Duration: 30 mins</span>
           </div>
         </td>
         <td className="px-6 py-4 whitespace-nowrap">
@@ -394,7 +609,7 @@ const AppointmentsPage = () => {
               className="text-blue-600 hover:text-blue-900 hover:bg-blue-50 px-3 py-2 rounded-lg transition-colors flex items-center"
               title="View Details"
             >
-              <Eye className="w-4 h-4" />
+              <IconEye />
             </button>
 
             {isAdminOrStaff && (
@@ -418,7 +633,7 @@ const AppointmentsPage = () => {
                   className="text-red-600 hover:text-red-900 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors"
                   title="Delete Appointment"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <IconTrash2 />
                 </button>
               </>
             )}
@@ -428,7 +643,6 @@ const AppointmentsPage = () => {
     );
   };
 
-  // Loading state
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -437,7 +651,7 @@ const AppointmentsPage = () => {
             <div className="relative mb-8">
               <div className="w-20 h-20 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin"></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Calendar className="w-8 h-8 text-blue-600" />
+                <IconCalendar />
               </div>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -473,12 +687,12 @@ const AppointmentsPage = () => {
                 onClick={fetchAppointments}
                 className="px-4 py-2 text-sm font-medium text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors flex items-center"
               >
-                <RefreshCw className="w-4 h-4 mr-2" />
-                Refresh
+                <IconRefreshCw />
+                <span className="ml-2">Refresh</span>
               </button>
               <button className="px-4 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors flex items-center">
-                <Download className="w-4 h-4 mr-2" />
-                Export
+                <IconDownload />
+                <span className="ml-2">Export</span>
               </button>
             </div>
           </div>
@@ -489,31 +703,31 @@ const AppointmentsPage = () => {
               label="Total Appointments"
               value={stats.total}
               color="bg-blue-100"
-              icon={<Calendar className="w-6 h-6 text-blue-600" />}
+              icon={<IconCalendar />}
             />
             <StatCard
               label="Today"
               value={stats.today}
               color="bg-green-100"
-              icon={<Clock className="w-6 h-6 text-green-600" />}
+              icon={<IconClock />}
             />
             <StatCard
               label="Upcoming"
               value={stats.upcoming}
               color="bg-yellow-100"
-              icon={<AlertCircle className="w-6 h-6 text-yellow-600" />}
+              icon={<IconAlertCircle />}
             />
             <StatCard
               label="Confirmed"
               value={stats.confirmed}
               color="bg-green-100"
-              icon={<CheckCircle className="w-6 h-6 text-green-600" />}
+              icon={<IconCheckCircle />}
             />
             <StatCard
               label="Cancelled"
               value={stats.cancelled}
               color="bg-red-100"
-              icon={<XCircle className="w-6 h-6 text-red-600" />}
+              icon={<IconXCircle />}
             />
           </div>
 
@@ -522,7 +736,9 @@ const AppointmentsPage = () => {
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <div className="flex-1">
                 <div className="relative max-w-lg">
-                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                    <IconSearch />
+                  </div>
                   <input
                     type="text"
                     placeholder="Search appointments by patient, doctor, or reason..."
@@ -545,7 +761,9 @@ const AppointmentsPage = () => {
                     <option value="completed">Completed</option>
                     <option value="cancelled">Cancelled</option>
                   </select>
-                  <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none w-4 h-4" />
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                    <IconChevronDown />
+                  </div>
                 </div>
                 <div>
                   <input
@@ -607,7 +825,7 @@ const AppointmentsPage = () => {
                   <tr>
                     <td colSpan="5" className="px-6 py-12 text-center">
                       <div className="flex flex-col items-center justify-center">
-                        <Calendar className="w-16 h-16 text-gray-400 mb-4" />
+                        <IconCalendar />
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">
                           No appointments found
                         </h3>
@@ -673,7 +891,7 @@ const AppointmentsPage = () => {
                   }}
                   className="p-2 hover:bg-white/20 rounded-lg transition-colors"
                 >
-                  <XCircle className="w-6 h-6" />
+                  <IconXCircle />
                 </button>
               </div>
             </div>
@@ -684,8 +902,8 @@ const AppointmentsPage = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="bg-gray-50 p-4 rounded-xl">
                     <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-                      <User className="w-5 h-5 mr-2" />
-                      Patient Information
+                      <IconUser />
+                      <span className="ml-2">Patient Information</span>
                     </h3>
                     <div className="space-y-3">
                       <div>
@@ -707,8 +925,8 @@ const AppointmentsPage = () => {
 
                   <div className="bg-gray-50 p-4 rounded-xl">
                     <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-                      <Shield className="w-5 h-5 mr-2" />
-                      Doctor Information
+                      <IconShield />
+                      <span className="ml-2">Doctor Information</span>
                     </h3>
                     <div className="space-y-3">
                       <div>
@@ -734,8 +952,8 @@ const AppointmentsPage = () => {
                 {/* Appointment Details */}
                 <div className="bg-gray-50 p-4 rounded-xl">
                   <h3 className="font-semibold text-gray-900 mb-3 flex items-center">
-                    <FileText className="w-5 h-5 mr-2" />
-                    Appointment Details
+                    <IconFileText />
+                    <span className="ml-2">Appointment Details</span>
                   </h3>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">

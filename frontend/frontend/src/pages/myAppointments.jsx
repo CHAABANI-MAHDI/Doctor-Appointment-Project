@@ -2,25 +2,300 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import {
-  Calendar,
-  Clock,
-  User,
-  XCircle,
-  CheckCircle,
-  AlertCircle,
-  ChevronRight,
-  Search,
-  Download,
-  ChevronDown,
-  FileText,
-  Shield,
-  Heart,
-  Brain,
-  Bone,
-  Baby,
-  Thermometer,
-} from "lucide-react";
+
+// Custom SVG icons (reusing from above)
+const IconCalendar = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+    <line x1="16" y1="2" x2="16" y2="6"></line>
+    <line x1="8" y1="2" x2="8" y2="6"></line>
+    <line x1="3" y1="10" x2="21" y2="10"></line>
+  </svg>
+);
+
+const IconClock = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <polyline points="12 6 12 12 16 14"></polyline>
+  </svg>
+);
+
+const IconUser = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+    <circle cx="12" cy="7" r="4"></circle>
+  </svg>
+);
+
+const IconXCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="15" y1="9" x2="9" y2="15"></line>
+    <line x1="9" y1="9" x2="15" y2="15"></line>
+  </svg>
+);
+
+const IconCheckCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+  </svg>
+);
+
+const IconAlertCircle = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="12" cy="12" r="10"></circle>
+    <line x1="12" y1="8" x2="12" y2="12"></line>
+    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+  </svg>
+);
+
+const IconChevronRight = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="9 18 15 12 9 6"></polyline>
+  </svg>
+);
+
+const IconSearch = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <circle cx="11" cy="11" r="8"></circle>
+    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+  </svg>
+);
+
+const IconDownload = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+    <polyline points="7 10 12 15 17 10"></polyline>
+    <line x1="12" y1="15" x2="12" y2="3"></line>
+  </svg>
+);
+
+const IconChevronDown = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <polyline points="6 9 12 15 18 9"></polyline>
+  </svg>
+);
+
+const IconFileText = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+    <polyline points="14 2 14 8 20 8"></polyline>
+    <line x1="16" y1="13" x2="8" y2="13"></line>
+    <line x1="16" y1="17" x2="8" y2="17"></line>
+    <polyline points="10 9 9 9 8 9"></polyline>
+  </svg>
+);
+
+const IconShield = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+  </svg>
+);
+
+const IconHeart = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+  </svg>
+);
+
+const IconBrain = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 2.5 2.5 0 0 1 2.46-3.86H9.5V2z"></path>
+    <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 2.5 2.5 0 0 0-2.46-3.86H14.5V2z"></path>
+  </svg>
+);
+
+const IconBone = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M17 10c.7-.7 1.69 0 2.5 0a2.5 2.5 0 1 0 0-5 .5.5 0 0 1-.5-.5 2.5 2.5 0 1 0-5 0c0 .81.7 1.8 0 2.5l-7 7c-.7.7-1.69 0-2.5 0a2.5 2.5 0 0 0 0 5c.28 0 .5.22.5.5a2.5 2.5 0 1 0 5 0c0-.81-.7-1.8 0-2.5l7-7z"></path>
+  </svg>
+);
+
+const IconBaby = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M9 12h.01"></path>
+    <path d="M15 12h.01"></path>
+    <path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"></path>
+    <path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"></path>
+  </svg>
+);
+
+const IconThermometer = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path>
+  </svg>
+);
 
 function MyAppointments() {
   const { logout } = useContext(AuthContext);
@@ -38,7 +313,6 @@ function MyAppointments() {
   const [expandedCard, setExpandedCard] = useState(null);
   const [viewMode, setViewMode] = useState("grid");
 
-  // Fetch appointments on mount
   useEffect(() => {
     const fetchAppointments = async () => {
       setLoading(true);
@@ -53,7 +327,7 @@ function MyAppointments() {
         }
 
         const res = await fetch(
-          "http://localhost:5000/appointments/getAppointment",
+          "http://localhost:3000/appointments/getAppointment",
           {
             headers: { Authorization: `Bearer ${token}` },
           },
@@ -75,13 +349,11 @@ function MyAppointments() {
         }
 
         const data = await res.json();
-        console.log("Fetched appointments:", data);
 
         if (!Array.isArray(data.appointment)) {
           throw new Error("Unexpected data format received from server");
         }
 
-        // Sort appointments (upcoming first, then by date)
         const sorted = [...data.appointment].sort((a, b) => {
           const dateA = new Date(a.date);
           const dateB = new Date(b.date);
@@ -114,18 +386,15 @@ function MyAppointments() {
     fetchAppointments();
   }, [logout, accessDenied]);
 
-  // Filter appointments based on search and filter
   useEffect(() => {
     let filtered = appointments;
 
-    // Apply status filter
     if (filter === "upcoming") {
       filtered = filtered.filter((app) => new Date(app.date) >= new Date());
     } else if (filter === "past") {
       filtered = filtered.filter((app) => new Date(app.date) < new Date());
     }
 
-    // Apply search filter
     if (searchQuery.trim() !== "") {
       const query = searchQuery.toLowerCase();
       filtered = filtered.filter(
@@ -140,7 +409,6 @@ function MyAppointments() {
     setFilteredAppointments(filtered);
   }, [appointments, searchQuery, filter]);
 
-  // Calculate stats
   const totalAppointments = appointments.length;
   const upcomingAppointments = appointments.filter(
     (app) => new Date(app.date) >= new Date(),
@@ -155,26 +423,22 @@ function MyAppointments() {
     return date >= now && hoursUntil < 24;
   }).length;
 
-  // Open cancel confirmation modal
   const openCancelModal = (appointment) => {
     setSelectedAppointment(appointment);
     setShowCancelModal(true);
   };
 
-  // Close cancel modal
   const closeCancelModal = () => {
     setShowCancelModal(false);
     setSelectedAppointment(null);
   };
 
-  // Cancel appointment handler
   const cancelAppointment = async () => {
     if (!selectedAppointment) return;
 
     const appointment = selectedAppointment;
     const id = appointment._id;
 
-    // Prevent cancellation of past appointments
     if (new Date(appointment.date) < new Date()) {
       toast.info("Cannot cancel appointments that have already occurred");
       closeCancelModal();
@@ -187,7 +451,7 @@ function MyAppointments() {
       if (!token) throw new Error("Session expired. Please log in again.");
 
       const res = await fetch(
-        `http://localhost:5000/appointments/deleteAppoitement/${id}`,
+        `http://localhost:3000/appointments/deleteAppoitement/${id}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
@@ -201,7 +465,6 @@ function MyAppointments() {
         );
       }
 
-      // Optimistic UI update
       setAppointments((prev) => prev.filter((app) => app._id !== id));
       toast.success("✅ Appointment cancelled successfully!");
     } catch (err) {
@@ -215,7 +478,6 @@ function MyAppointments() {
     }
   };
 
-  // Format date with validation
   const formatAppointmentDate = (dateString) => {
     if (!dateString) return { valid: false, display: "Invalid date" };
 
@@ -244,7 +506,6 @@ function MyAppointments() {
     return { valid: true, display, isPast, isToday };
   };
 
-  // Get time until appointment
   const getTimeUntil = (dateString) => {
     const date = new Date(dateString);
     const now = new Date();
@@ -261,7 +522,6 @@ function MyAppointments() {
     return `${minutes}m`;
   };
 
-  // Get appointment status
   const getAppointmentStatus = (appointment) => {
     const date = new Date(appointment.date);
     const now = new Date();
@@ -271,7 +531,7 @@ function MyAppointments() {
         type: "completed",
         label: "Completed",
         color: "bg-gray-100 text-gray-700",
-        icon: <CheckCircle className="w-4 h-4" />,
+        icon: <IconCheckCircle />,
       };
     }
 
@@ -283,7 +543,7 @@ function MyAppointments() {
         type: "upcoming",
         label: "Soon",
         color: "bg-orange-100 text-orange-700",
-        icon: <AlertCircle className="w-4 h-4" />,
+        icon: <IconAlertCircle />,
       };
     }
 
@@ -291,23 +551,21 @@ function MyAppointments() {
       type: "upcoming",
       label: "Upcoming",
       color: "bg-green-100 text-green-700",
-      icon: <CheckCircle className="w-4 h-4" />,
+      icon: <IconCheckCircle />,
     };
   };
 
-  // Get specialty icon
   const getSpecialtyIcon = (specialty) => {
     const icons = {
-      Cardiology: <Heart className="w-5 h-5 text-red-500" />,
-      Neurology: <Brain className="w-5 h-5 text-purple-500" />,
-      Orthopedics: <Bone className="w-5 h-5 text-blue-500" />,
-      Pediatrics: <Baby className="w-5 h-5 text-pink-500" />,
-      "General Practice": <Thermometer className="w-5 h-5 text-green-500" />,
+      Cardiology: <IconHeart />,
+      Neurology: <IconBrain />,
+      Orthopedics: <IconBone />,
+      Pediatrics: <IconBaby />,
+      "General Practice": <IconThermometer />,
     };
-    return icons[specialty] || <User className="w-5 h-5 text-gray-500" />;
+    return icons[specialty] || <IconUser />;
   };
 
-  // Export appointments
   const exportAppointments = () => {
     const data = filteredAppointments.map((app) => ({
       Doctor: `Dr. ${app.doctor?.name || "Unknown"}`,
@@ -337,26 +595,22 @@ function MyAppointments() {
     toast.success("Appointments exported successfully!");
   };
 
-  // Get doctor image URL
   const getDoctorImageUrl = (doctor) => {
     if (!doctor) return null;
 
-    // Check if image exists and construct proper URL
     if (doctor.image) {
-      // Remove any leading slashes or backslashes
       const cleanImage = doctor.image.replace(/^[\\/]+/, "");
-      return `http://localhost:5000/${cleanImage}`;
+      return `http://localhost:3000/${cleanImage}`;
     }
     return null;
   };
 
-  // ===== ACCESS DENIED VIEW =====
   if (accessDenied) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-10 text-center border border-blue-100">
           <div className="mx-auto flex items-center justify-center h-20 w-20 rounded-full bg-blue-50 mb-6 border-2 border-blue-200">
-            <Shield className="h-10 w-10 text-blue-600" />
+            <IconShield />
           </div>
 
           <h1 className="text-3xl font-bold text-gray-900 mb-3">
@@ -386,7 +640,6 @@ function MyAppointments() {
     );
   }
 
-  // ===== LOADING STATE =====
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
@@ -395,7 +648,7 @@ function MyAppointments() {
             <div className="relative mb-8">
               <div className="w-20 h-20 rounded-full border-4 border-blue-200 border-t-blue-600 animate-spin"></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Calendar className="w-8 h-8 text-blue-600" />
+                <IconCalendar />
               </div>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
@@ -410,7 +663,6 @@ function MyAppointments() {
     );
   }
 
-  // ===== MAIN VIEW =====
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Stats Cards at the Top */}
@@ -428,7 +680,7 @@ function MyAppointments() {
                 </div>
               </div>
               <div className="w-12 h-12 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                <Calendar className="w-6 h-6 text-blue-600" />
+                <IconCalendar />
               </div>
             </div>
           </div>
@@ -443,7 +695,7 @@ function MyAppointments() {
                 <div className="text-sm text-green-600 mt-1">Upcoming</div>
               </div>
               <div className="w-12 h-12 rounded-lg bg-green-500/20 flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-green-600" />
+                <IconCheckCircle />
               </div>
             </div>
           </div>
@@ -458,7 +710,7 @@ function MyAppointments() {
                 <div className="text-sm text-gray-600 mt-1">Completed</div>
               </div>
               <div className="w-12 h-12 rounded-lg bg-gray-500/20 flex items-center justify-center">
-                <CheckCircle className="w-6 h-6 text-gray-600" />
+                <IconCheckCircle />
               </div>
             </div>
           </div>
@@ -473,7 +725,7 @@ function MyAppointments() {
                 <div className="text-sm text-orange-600 mt-1">Within 24h</div>
               </div>
               <div className="w-12 h-12 rounded-lg bg-orange-500/20 flex items-center justify-center">
-                <Clock className="w-6 h-6 text-orange-600" />
+                <IconClock />
               </div>
             </div>
           </div>
@@ -499,10 +751,9 @@ function MyAppointments() {
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div className="flex-1">
                   <div className="relative max-w-md">
-                    <Search
-                      className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
-                      size={20}
-                    />
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+                      <IconSearch />
+                    </div>
                     <input
                       type="text"
                       placeholder="Search appointments by doctor, specialty, or reason..."
@@ -541,10 +792,9 @@ function MyAppointments() {
                       <option value="upcoming">Upcoming</option>
                       <option value="past">Past</option>
                     </select>
-                    <ChevronDown
-                      className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
-                      size={16}
-                    />
+                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none">
+                      <IconChevronDown />
+                    </div>
                   </div>
 
                   {/* Export Button */}
@@ -552,8 +802,8 @@ function MyAppointments() {
                     onClick={exportAppointments}
                     className="flex items-center px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
                   >
-                    <Download className="w-5 h-5 mr-2" />
-                    <span className="hidden sm:inline">Export</span>
+                    <IconDownload />
+                    <span className="ml-2 hidden sm:inline">Export</span>
                   </button>
                 </div>
               </div>
@@ -586,8 +836,8 @@ function MyAppointments() {
           {error && (
             <div className="mb-6 bg-red-50 border-l-4 border-red-500 rounded-lg p-5 shadow-sm">
               <div className="flex items-start">
-                <AlertCircle className="w-6 h-6 text-red-500 mt-0.5 mr-3 flex-shrink-0" />
-                <div className="flex-1">
+                <IconAlertCircle />
+                <div className="flex-1 ml-3">
                   <h3 className="font-semibold text-red-900 mb-1">
                     Error Loading Appointments
                   </h3>
@@ -608,7 +858,7 @@ function MyAppointments() {
             // Empty State
             <div className="bg-gray-50 rounded-2xl border-2 border-dashed border-blue-200 shadow-sm p-16 text-center">
               <div className="inline-flex items-center justify-center h-24 w-24 rounded-full bg-blue-50 mb-6 border-2 border-blue-200">
-                <Calendar className="h-12 w-12 text-blue-600" />
+                <IconCalendar />
               </div>
               <h2 className="text-3xl font-bold text-gray-900 mb-3">
                 No Appointments Found
@@ -632,8 +882,8 @@ function MyAppointments() {
                   onClick={() => navigate("/add-appointment")}
                   className="inline-flex items-center px-8 py-3 border border-transparent text-base font-semibold rounded-xl shadow-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all"
                 >
-                  <Calendar className="mr-2 h-5 w-5" />
-                  Schedule New Appointment
+                  <IconCalendar />
+                  <span className="ml-2">Schedule New Appointment</span>
                 </button>
               </div>
             </div>
@@ -697,8 +947,8 @@ function MyAppointments() {
                       {/* Appointment Info */}
                       <div className="space-y-3">
                         <div className="flex items-center text-gray-600">
-                          <Calendar className="w-4 h-4 mr-3 text-gray-400" />
-                          <span className="text-sm">{display}</span>
+                          <IconCalendar />
+                          <span className="text-sm ml-3">{display}</span>
                           {isToday && (
                             <span className="ml-2 text-xs font-medium bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
                               Today
@@ -706,14 +956,14 @@ function MyAppointments() {
                           )}
                         </div>
                         <div className="flex items-center text-gray-600">
-                          <Clock className="w-4 h-4 mr-3 text-gray-400" />
-                          <span className="text-sm">
+                          <IconClock />
+                          <span className="text-sm ml-3">
                             {timeUntil ? `${timeUntil} remaining` : "Completed"}
                           </span>
                         </div>
                         <div className="flex items-center text-gray-600">
-                          <FileText className="w-4 h-4 mr-3 text-gray-400" />
-                          <span className="text-sm truncate">
+                          <IconFileText />
+                          <span className="text-sm ml-3 truncate">
                             {app.reason || "General checkup"}
                           </span>
                         </div>
@@ -734,7 +984,7 @@ function MyAppointments() {
                           {expandedCard === app._id
                             ? "Show Less"
                             : "View Details"}
-                          <ChevronRight
+                          <IconChevronRight
                             className={`w-4 h-4 ml-1 transition-transform ${expandedCard === app._id ? "rotate-90" : ""}`}
                           />
                         </button>
@@ -870,8 +1120,8 @@ function MyAppointments() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div className="flex items-center">
-                                <Calendar className="w-4 h-4 text-gray-400 mr-3" />
-                                <div>
+                                <IconCalendar />
+                                <div className="ml-3">
                                   <div className="text-sm text-gray-500">
                                     Date & Time
                                   </div>
@@ -881,8 +1131,8 @@ function MyAppointments() {
                                 </div>
                               </div>
                               <div className="flex items-center">
-                                <FileText className="w-4 h-4 text-gray-400 mr-3" />
-                                <div>
+                                <IconFileText />
+                                <div className="ml-3">
                                   <div className="text-sm text-gray-500">
                                     Reason
                                   </div>
@@ -964,7 +1214,7 @@ function MyAppointments() {
             <div className="bg-gradient-to-r from-red-500 to-red-600 p-6 text-white">
               <div className="flex items-center justify-center mb-4">
                 <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center">
-                  <XCircle className="w-8 h-8 text-white" />
+                  <IconXCircle />
                 </div>
               </div>
               <h3 className="text-2xl font-bold text-center mb-2">
@@ -1009,8 +1259,8 @@ function MyAppointments() {
 
                 <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-100">
                   <div className="flex items-start">
-                    <AlertCircle className="w-5 h-5 text-yellow-600 mr-3 mt-0.5 flex-shrink-0" />
-                    <div className="text-sm text-yellow-800">
+                    <IconAlertCircle />
+                    <div className="text-sm text-yellow-800 ml-3">
                       <strong className="font-semibold">Note:</strong>{" "}
                       Cancellations made less than 24 hours before the
                       appointment may be subject to a fee.
